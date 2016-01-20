@@ -20,7 +20,7 @@
 # to set variables in pairs with Packer (and Packer does not support
 # multi-value variables).
 CM_VERSION=${CM_VERSION:-latest}
-SSH_USER=${SSH_USERNAME:-vagrant}
+SSH_USER=${SSH_USERNAME:-ensembl}
 
 #
 # Provisioner installs.
@@ -51,7 +51,7 @@ install_chef_dk()
 
     echo "==> Adding Chef Development Kit and Ruby to PATH"
     echo 'eval "$(chef shell-init bash)"' >> /home/${SSH_USER}/.bash_profile
-    chown vagrant /home/${SSH_USER}/.bash_profile
+    chown ensembl /home/${SSH_USER}/.bash_profile
 }
 
 install_salt()

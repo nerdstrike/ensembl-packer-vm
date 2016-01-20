@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-SSH_USERNAME=${SSH_USERNAME:-vagrant}
+SSH_USERNAME=${SSH_USERNAME:-ensembl}
 
 if [[ $PACKER_BUILDER_TYPE =~ vmware ]]; then
     echo "==> Installing VMware Tools"

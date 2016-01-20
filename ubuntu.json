@@ -92,6 +92,9 @@
         ],
         [
           "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
+        ],
+        [
+          "modifyvm", "{{.Name}}", "--nictype1", "virtio"
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
@@ -161,8 +164,23 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "/home/lairdm/src/ensembl-vm-puppet/files/ebang-1440-900.png",
+      "destination": "/home/ensembl/Pictures/ebang-1440-900.png"
+    },
+    {
+      "type": "file",
+      "source": "/home/lairdm/src/ensembl-vm-puppet/files/google-chrome.desktop",
+      "destination": "/home/ensembl/Desktop/google-chrome.desktop"
+    },
+    {
+      "type": "file",
+      "source": "/home/lairdm/src/ensembl-vm-puppet/files/VEP.desktop",
+      "destination": "/home/ensembl/Desktop/VEP.desktop"
+    },
+    {
       "environment_vars": [
-        "CM={{user `cm`}}",
+        "CM=puppet",
         "CM_VERSION={{user `cm_version`}}",
         "CLEANUP_PAUSE={{user `cleanup_pause`}}",
         "DESKTOP={{user `desktop`}}",
@@ -188,6 +206,7 @@
         "script/parallels.sh",
         "script/docker.sh",
         "script/cmtool.sh",
+        "script/ensembl.sh",
         "script/motd.sh",
         "custom-script.sh",
         "script/minimize.sh",
@@ -220,10 +239,10 @@
     "parallels_guest_os_type": "ubuntu",
     "preseed" : "preseed.cfg",
     "rsync_proxy": "{{env `rsync_proxy`}}",
-    "hostname": "vagrant",
-    "ssh_fullname": "vagrant",
-    "ssh_password": "vagrant",
-    "ssh_username": "vagrant",
+    "hostname": "ensembl",
+    "ssh_fullname": "ensembl",
+    "ssh_password": "ensembl",
+    "ssh_username": "ensembl",
     "update": "false",
     "vagrantfile_template": "",
     "version": "0.1.0",
