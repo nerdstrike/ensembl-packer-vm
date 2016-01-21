@@ -164,6 +164,14 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
+      "inline": ["mkdir -p /home/ensembl/Pictures"]
+    },
+    {
+      "type": "shell",
+      "inline": ["mkdir -p /home/{{user `ssh_username`}}/Desktop"]
+    },
+    {
       "type": "file",
       "source": "/home/lairdm/src/ensembl-vm-puppet/files/ebang-1440-900.png",
       "destination": "/home/ensembl/Pictures/ebang-1440-900.png"
@@ -206,13 +214,20 @@
         "script/parallels.sh",
         "script/docker.sh",
         "script/cmtool.sh",
-        "script/ensembl.sh",
         "script/motd.sh",
         "custom-script.sh",
+        "script/ensembl.sh",
         "script/minimize.sh",
         "script/cleanup.sh"
       ],
       "type": "shell"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "/home/lairdm/src/ensembl-vm-puppet/ensembl.pp",
+      "facter" : { "ensembl_release" : "83" },
+      "module_paths" : [ "/etc/puppet/modules" ],
+      "execute_command" : "cd {{.WorkingDir}} && {{.FacterVars}}{{if .Sudo}} sudo -E {{end}}puppet apply --verbose --modulepath='/etc/puppet/modules' {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} --detailed-exitcodes --parser future {{.ManifestFile}}"
     }
   ],
   "variables": {

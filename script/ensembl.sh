@@ -18,7 +18,7 @@ puppet module install puppetlabs-stdlib
 
 # Set up environment
 echo >> /home/ensembl/.bashrc
-echo "export PERL5LIB=$HOME/ensembl-api-folder/ensembl/modules:$HOME/ensembl-api-folder/ensembl-compara/modules:$HOME/ensembl-api-folder/ensembl-external/modules:$HOME/ensembl-api-folder/ensembl-funcgen/modules:$HOME/ensembl-api-folder/ensembl-variation/modules:$HOME/ensembl-api-folder/bioperl-live:$PERL5LIB" >> /home/ensembl/.bashrc
+echo "export PERL5LIB=$HOME/ensembl-api-folder/ensembl/modules:$HOME/ensembl-api-folder/ensembl-compara/modules:$HOME/ensembl-api-folder/ensembl-external/modules:$HOME/ensembl-api-folder/ensembl-funcgen/modules:$HOME/ensembl-api-folder/ensembl-variation/modules:$HOME/ensembl-api-folder/ensembl-test/modules:$HOME/ensembl-api-folder/bioperl-live:$PERL5LIB" >> /home/ensembl/.bashrc
 
 echo >> /home/ensembl/.bashrc
 echo "export PATH=$PATH:$HOME/ensembl-git-tools/bin:$HOME/ensembl-api-folder/ensembl-variation/C_code" >> /home/ensembl/.bashrc
@@ -34,9 +34,6 @@ sudo apt-get install -y --no-install-recommends ubuntu-mate-core ubuntu-mate-des
 # Install Chromium
 apt-get -y install chromium-browser
 
-# Set background image
-gsettings set org.gnome.desktop.background picture-uri "file:///home/ensembl/Pictures/ebang-1440-900.png"
-
 # Make Desktop symlinks
 (cd /home/ensembl/Desktop ; ln -s /home/ensembl/VEP)
 (cd /home/ensembl/Desktop ; ln -s /home/ensembl/ensembl-api-folder)
@@ -48,7 +45,18 @@ sudo apt-get update
 sudo apt-get install -y google-chrome-stable
 
 # Set desktop icons executable
-chmod +x /home/ensembl/*.desktop
+chmod +x /home/ensembl/Desktop/*.desktop
+
+# Set background image
+echo "Set background image"
+gsettings set org.gnome.desktop.background picture-uri "file:///home/ensembl/Pictures/ebang-1440-900.png"
+cp /home/ensembl/Pictures/ebang-1440-900.png /usr/share/backgrounds/warty-final-ubuntu.png
 
 # Hack for future parser
+echo "Puppet parser settings, future"
 echo "parser = future" >>/etc/puppet/puppet.conf
+
+# Auto Login
+mkdir /etc/lightdm/lightdm.conf.d
+echo "[SeatDefaults]" >/etc/lightdm/lightdm.conf.d/50-myconfig.conf
+echo "autologin-user=ensembl" >>/etc/lightdm/lightdm.conf.d/50-myconfig.conf
