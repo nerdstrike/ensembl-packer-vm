@@ -28,3 +28,9 @@ Once the box built it can be added with:
     $ vagrant up
 
 And you should have a functioning Ensembl VM.
+
+## Removal of VM
+
+To remove the box from your vagrant install simply issue:
+
+    $ vagrant box remove ensembl/ensembl
