@@ -34,3 +34,10 @@ And you should have a functioning Ensembl VM.
 To remove the box from your vagrant install simply issue:
 
     $ vagrant box remove ensembl/ensembl
+
+## Install via Vagrant
+
+To install the current prebuilt VM from Hashicorp's Atlas:
+
+    $ vagrant init ensembl/ensembl
+    $ vagrant up --provider virtualbox
