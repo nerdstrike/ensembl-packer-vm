@@ -12,6 +12,10 @@ This repository is derived from [Boxcutter](https://github.com/boxcutter/ubuntu)
 
 To build the box, you will need [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [Puppet](https://puppetlabs.com/puppet/puppet-open-source) and [Packer](https://www.packer.io/intro/getting-started/setup.html)
 
+   You will also need the ensembl-vm-puppet repository checked out at the same level as this packer directory:
+    $ git clone https://github.com/Ensembl/ensembl-vm-puppet.git
+    $ git clone https://github.com/Ensembl/ensembl-packer-vm.git
+
 Once the pre-reqs are installed, building the virtual machine should be as simple as:
 
     $ export ENSEMBL_RELEASE=83
