@@ -8,8 +8,8 @@ debconf-set-selections <<< 'mysql-server mysql-server/root_password_again passwo
 apt-get install -y libdbi-perl libdbd-mysql libdbd-mysql-perl sqlite3 libmysqlclient-dev mysql-server
 #apt-get install -y cpanminus libdbi-perl libdbd-mysql libdbd-mysql-perl sqlite3
 
-# We need git
-apt-get install -y git
+# We need git and other build essentials
+apt-get install -y git build-essential
 
 # Install emacs
 apt-get install -y emacs24

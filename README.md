@@ -23,7 +23,7 @@ Once the pre-reqs are installed, building the virtual machine should be as simpl
 
 Once the box built it can be added with:
 
-    $ vagrant box add ensembl/ensembl ~/src/ubuntu/box/virtualbox/ensembl-83-ubuntu1404-desktop.box
+    $ vagrant box add ensembl/ensembl box/virtualbox/ensembl-83-ubuntu1404-desktop.box
     $ vagrant init ensembl/ensembl
     $ vagrant up
 
