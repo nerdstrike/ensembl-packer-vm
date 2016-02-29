@@ -88,4 +88,4 @@ Comment=Disable the lock screen
 EOF
 
 echo "Doing system update to avoid user being hit with the Software Updater"
-sudo apt-get update && sudo apt-get -y upgrade
+#sudo apt-get update && sudo apt-get -y upgrade
