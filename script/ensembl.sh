@@ -43,7 +43,7 @@ apt-get -y install chromium-browser
 
 # Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update 
 sudo apt-get install -y google-chrome-stable
 
@@ -86,6 +86,10 @@ X-GNOME-Autostart-enabled=true
 Name=LockScreen Disabled
 Comment=Disable the lock screen
 EOF
+
+# Removing Amazon search results
+sudo apt-get -y remove unity-scope-home
+sudo rm -f /usr/share/applications/ubuntu-amazon-default.desktop
 
 echo "Doing system update to avoid user being hit with the Software Updater"
 sudo apt-get update && sudo apt-get -y upgrade
