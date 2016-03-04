@@ -88,8 +88,8 @@ Comment=Disable the lock screen
 EOF
 
 # Removing Amazon search results
-sudo apt-get -y remove unity-scope-home
-sudo rm -f /usr/share/applications/ubuntu-amazon-default.desktop
+#sudo apt-get -y remove unity-scope-home
+#sudo rm -f /usr/share/applications/ubuntu-amazon-default.desktop
 
 echo "Doing system update to avoid user being hit with the Software Updater"
-sudo apt-get update && sudo apt-get -y upgrade
+#sudo apt-get update && sudo apt-get -y upgrade
