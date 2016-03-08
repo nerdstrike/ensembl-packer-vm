@@ -165,8 +165,31 @@
   ],
   "provisioners": [
     {
+      "type": "shell",
+      "inline": ["mkdir -p /home/ensembl/Pictures"]
+    },
+    {
+      "type": "shell",
+      "inline": ["mkdir -p /home/{{user `ssh_username`}}/Desktop"]
+    },
+    {
+      "type": "file",
+      "source": "../ensembl-vm-puppet/files/ebang-1440-900.png",
+      "destination": "/home/ensembl/Pictures/ebang-1440-900.png"
+    },
+    {
+      "type": "file",
+      "source": "../ensembl-vm-puppet/files/google-chrome.desktop",
+      "destination": "/home/ensembl/Desktop/google-chrome.desktop"
+    },
+    {
+      "type": "file",
+      "source": "../ensembl-vm-puppet/files/VEP.desktop",
+      "destination": "/home/ensembl/Desktop/VEP.desktop"
+    },
+    {
       "environment_vars": [
-        "CM={{user `cm`}}",
+        "CM=puppet",
         "CM_VERSION={{user `cm_version`}}",
         "CLEANUP_PAUSE={{user `cleanup_pause`}}",
         "DESKTOP={{user `desktop`}}",
@@ -194,8 +217,23 @@
         "script/cmtool.sh",
         "script/motd.sh",
         "custom-script.sh",
+        "script/ensembl.sh",
         "script/minimize.sh",
         "script/cleanup.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "type": "puppet-masterless",
+      "manifest_file": "../ensembl-vm-puppet/ensembl.pp",
+      "facter" : { "ensembl_release" : "{{user `ENSEMBL_RELEASE`}}" },
+      "module_paths" : [ "/etc/puppet/modules" ],
+      "execute_command" : "cd {{.WorkingDir}} && {{.FacterVars}}{{if .Sudo}} sudo -E {{end}}puppet apply --verbose --modulepath='/etc/puppet/modules' {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} --detailed-exitcodes --parser future {{.ManifestFile}}"
+    },
+    {
+      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} bash '{{.Path}}'",
+      "scripts": [
+        "script/ensembl-post.sh"
       ],
       "type": "shell"
     }
@@ -206,7 +244,7 @@
     "cm_version": "",
     "cpus": "1",
     "custom_script": ".",
-    "desktop": "false",
+    "desktop": "true",
     "disk_size": "65536",
     "docker": "false",
     "ftp_proxy": "{{env `ftp_proxy`}}",
@@ -229,11 +267,12 @@
     "ssh_password": "ensembl",
     "ssh_username": "ensembl",
     "update": "false",
+    "vagrantfile_template": "tpl/vagrantfile-ubuntu1510-desktop.tpl",
     "version": "0.1.0",
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1510",
-    "vagrantfile_template": "tpl/vagrantfile-ubuntu1510-desktop.tpl"
-    "vmware_guest_os_type": "ubuntu-64"
+    "vmware_guest_os_type": "ubuntu-64",
+    "ENSEMBL_RELEASE": "{{env `ENSEMBL_RELEASE`}}"
   }
 }
 
