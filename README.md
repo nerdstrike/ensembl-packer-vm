@@ -19,11 +19,11 @@ To build the box, you will need [VirtualBox](https://www.virtualbox.org/wiki/Dow
 Once the pre-reqs are installed, building the virtual machine should be as simple as:
 
     $ export ENSEMBL_RELEASE=83
-    $ packer build -var-file=ubuntu1404-desktop.json ubuntu.json 2>&1 |tee build.log
+    $ packer build ubuntu.json 2>&1 |tee build1404.log
 
 Once the box built it can be added with:
 
-    $ vagrant box add ensembl/ensembl ~/src/ubuntu/box/virtualbox/ensembl-83-ubuntu1404-desktop.box
+    $ vagrant box add ensembl/ensembl box/virtualbox/ensembl-83-ubuntu1404.box
     $ vagrant init ensembl/ensembl
     $ vagrant up
 

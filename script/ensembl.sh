@@ -1,5 +1,8 @@
 #!/bin/bash -eux
 
+echo "Doing system update to avoid user being hit with the Software Updater"
+sudo apt-get update && sudo apt-get -y dist-upgrade
+
 # Install extras needed by Ensembl API
 
 # Perl modules
@@ -43,7 +46,7 @@ apt-get -y install chromium-browser
 
 # Install Chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update 
 sudo apt-get install -y google-chrome-stable
 
@@ -87,5 +90,4 @@ Name=LockScreen Disabled
 Comment=Disable the lock screen
 EOF
 
-echo "Doing system update to avoid user being hit with the Software Updater"
-sudo apt-get update && sudo apt-get -y upgrade
+sudo rm -f /usr/share/applications/ubuntu-amazon-default.desktop
