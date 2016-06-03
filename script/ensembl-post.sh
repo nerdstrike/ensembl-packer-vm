@@ -10,9 +10,12 @@ echo ". ~/perl5/perlbrew/etc/bashrc" >>~/.bashrc
 perlbrew install -j 2 --notest perl-5.14.2 -D=usethreads -D=useshrplib -A='ccflags=-fPIC' --as 'perl-5.14.2'
 
 perlbrew switch perl-5.14.2
+echo "Perl version currently running:"
+perl -v
 echo "perlbrew switch perl-5.14.2" >>~/.bashrc
 
-cpanp install App::cpanminus
+#cpanp install App::cpanminus
+curl -L https://cpanmin.us | perl - App::cpanminus
 
 # Install cpan modules for ensembl
 echo "Installing cpan modules for ensembl modules"
@@ -24,6 +27,9 @@ done
 cpanm Test::Warn
 cpanm -n DBD::SQLite
 cpanm Devel::Cover
+cpanm DBI
+cpanm DBD::mysql
+cpanm Module::Build
 
 # Install faidx, tabix, and dependencies
 cd $HOME/ensembl-api-folder/
@@ -34,6 +40,11 @@ cd perl
 perl Makefile.PL
 make && make install
 cd ../../
+
+# Run the Bio-HTS install
+cd $HOME/ensembl-api-folder/Bio-HTS
+perl Build.PL
+./Build install
 
 # Run tests
 test_modules=( "ensembl" )
